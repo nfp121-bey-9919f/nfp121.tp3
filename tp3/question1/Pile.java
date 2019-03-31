@@ -12,50 +12,68 @@ import question1.PileVideException;
 public class Pile {
     public final static int TAILLE_PAR_DEFAUT = 5;
 
-    private int[] zone;
+    private Object[] zone;
     private int ptr;
 
     /**
      * à compléter
-     * 
+     * Constructeur avec parametre nombre elements
      */
     public Pile(int taille) {
         if (taille < 0)
             taille = TAILLE_PAR_DEFAUT;
-        this.zone = new int[taille];
+        this.zone = new Object[taille];
         this.ptr = 0;
     }
 
+    /**
+     * Constructeur par default
+     */
     public Pile() {
         this(TAILLE_PAR_DEFAUT);
     }
 
-    public void empiler(int i) throws PilePleineException {
+    /**
+     * Ajouter un objet o
+     */
+    public void empiler(Object o) throws PilePleineException {
         if (estPleine())
             throw new PilePleineException();
-        this.zone[this.ptr] = i;
+        this.zone[this.ptr] = o;
         this.ptr++;
     }
 
-    public int depiler() throws PileVideException {
+    /**
+     * Enlever le dernier objet ajouter
+     */
+    public Object depiler() throws PileVideException {
         if (estVide())
             throw new PileVideException();
         this.ptr--;
         return zone[ptr];
     }
 
+    /**
+     * return true si pile est vide
+     */
     public boolean estVide() {
         return ptr == 0;
     }
 
+    /**
+     * return true si pile est pleine
+     */
     public boolean estPleine() {
         return ptr == zone.length;
     }
 
+    /**
+     * Afficher le contenue de la pile
+     */
     public String toString() {
         StringBuffer sb = new StringBuffer("[");
         for (int i = ptr - 1; i >= 0; i--) {
-            sb.append(Integer.toString(zone[i]));
+            sb.append(zone[i].toString());
             if (i > 0)
                 sb.append(", ");
         }
